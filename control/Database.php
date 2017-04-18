@@ -19,6 +19,7 @@
         $this->sambungan = null;
             die($e->getMessage());
     		}
+        
     }
 
     /**
