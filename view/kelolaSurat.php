@@ -1,3 +1,9 @@
+<?php
+  include_once '../control/init.php';
+  $a = new Akun('juunnn',$db);
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <title>SART Management</title>
@@ -6,7 +12,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/gaya.css">
 <link rel="stylesheet" href="css/bootstrap.css">
-<link href='font/font.css' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="font/font.css"  type="text/css">
 <link rel="stylesheet" href="font/font2.css">
 <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
@@ -26,6 +32,7 @@
   .w3-bar-block .w3-bar-item {
     padding: 16px
   }
+
 </style>
 
 <body class="w3-light-grey">
@@ -50,7 +57,7 @@
       </div>
       <div class="w3-col s8 w3-bar">
         <span>Welcome, <strong>Admin!</strong></span><br>
-        <a href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-user"></span></i></a>
+        <a href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-user"></span></a>
         <a href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-remove"></span></a>
         <a href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-lock"></span></a>
       </div>
@@ -80,7 +87,7 @@
     <div class="w3-row-padding w3-margin-bottom">
       <div class="w3-quarter">
         <div class="w3-container w3-red w3-padding-16">
-          <div class="w3-left"><span class="glyphicon glyphicon-minus"></i></div>
+          <div class="w3-left"><span class="glyphicon glyphicon-minus"></div>
         <div class="w3-right">
           <h3>52</h3>
         </div>
@@ -134,77 +141,14 @@
             <td><i>DISETUJUI</i></td>
             <td><i>MANAGE</i></td>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-           <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
+          <?
+            $a->seeArsip();
+           ?>
         </table>
       </div>
     </div>
   </div>
-  <button href="javascript:void(0)" class="w3-button w3-dark-grey" style="margin-left:15px" onclick="document.getElementById('id01').style.display='block'">Tambah &nbsp;<span class="glyphicon glyphicon-chevron-right"></i></button>
+  <button href="javascript:void(0)" class="w3-button w3-dark-grey" style="margin-left:15px" onclick="document.getElementById('id01').style.display='block'">Tambah &nbsp;<span class="glyphicon glyphicon-chevron-right">
   <hr>
 
   <!-- Footer -->
@@ -263,6 +207,7 @@
           mySidebar.style.display = "none";
           overlayBg.style.display = "none";
         }
+
       </script>
 
       <script>
@@ -306,11 +251,13 @@
           document.getElementById(personName).style.display = "block";
           event.currentTarget.className += " w3-light-grey";
         }
+
       </script>
 
       <script>
         var openTab = document.getElementById("firstTab");
         openTab.click();
+
       </script>
 
 </body>

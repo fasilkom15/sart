@@ -55,11 +55,25 @@
       }
 
       public function seeArsip(){
-        # code...
+        $data = $this->db->SELECT('keluar,surat,acara,kolega','keluar.no_surat = surat.no_surat AND acara.id = keluar.no_acara AND kolega.id = keluar.no_tujuan');
+        //echo "<pre>",print_r($data),"</pre>";
+
+        foreach ($data as $tuple) {
+          echo "
+            <tr>
+              <td> ".$tuple['no_surat']."/BEM-FASILKOM/UNSIKA/X/2017 </td>
+              <td>".$tuple['tanggal']."</td>
+              <td>".$tuple['sekretaris']."</td>
+              <td>".$tuple['perihal']."</td>
+              <td>".$tuple['pemimpin']." ".$tuple['instansi']."</td>
+              <td>".$tuple['status']."</td>
+            </tr>
+          ";
+        }
       }
 
       public function launched(){
-        # code...
+        
       }
   }
 
