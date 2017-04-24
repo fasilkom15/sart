@@ -1,3 +1,4 @@
+<?php include_once 'init.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
         <div class="col-xs12">
           <h1 align="left">Welcome..</h1>
           <p align="left">Arsip adalah arsip, violet itu biru mawar itu merah :v</p>
-          <p align="right"><a class="btn btn-primary btn-lg" href="view/Akun.html" role="button">Learn more</a></p>
+          <p align="right"><a class="btn btn-primary btn-lg" href="view/masuk.php" role="button">Learn more</a></p>
         </div>
       </div>
     </div>

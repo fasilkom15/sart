@@ -1,12 +1,30 @@
+<?php
+  include_once '../init.php';
+  session_start();
+  if (!isset($_SESSION['user_session'])) {
+     header('Location: masuk.php');
+  }
+  else {
+     $db = $GLOBALS['db'];
+     if (!$_SESSION['hak']) {
+       $user = new SekBis($_SESSION['user_session'],$db);
+     }
+     else {
+       $user = new SekUm($_SESSION['user_session'],$db);
+     }
+  }
+ ?>
+
 <!DOCTYPE html>
 <html>
+<head>
 <title>SART Management</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/gaya.css">
 <link rel="stylesheet" href="css/bootstrap.css">
-<link href='font/font.css' rel='stylesheet' type='text/css'>
+<link href="font/font.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="font/font2.css">
 <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
@@ -27,6 +45,9 @@
     padding: 16px
   }
 </style>
+</head>
+
+
 
 <body class="w3-light-grey">
 
@@ -38,19 +59,20 @@
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Search">
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-default">Cari</button>
     </form>
   </div>
 
   <!-- Sidebar/menu -->
-  <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
+    <br>
     <div class="w3-container w3-row">
       <div class="w3-col s4">
-        <img src="img/suzu.jpg" class="w3-circle w3-margin-right" style="width:46px">
+        <img src="data:image/jpeg;base64,<?=$user->getFoto();?>" alt="KOSONG" class="w3-circle w3-margin-right" style="width:46px">
       </div>
       <div class="w3-col s8 w3-bar">
-        <span>Welcome, <strong>Admin!</strong></span><br>
-        <a href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-user"></span></i></a>
+        <span>Welcome, <strong><?=$user->nama?></strong></span><br>
+        <a class="w3-bar-item w3-button" onclick="<? $user->logout()?>"><span class="glyphicon glyphicon-user"></span></a>
         <a href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-remove"></span></a>
         <a href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-lock"></span></a>
       </div>
@@ -58,11 +80,11 @@
     <hr>
     <div class="w3-bar-block">
       <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-
       <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><span class="glyphicon glyphicon-play"></span> &nbsp; Overview</a>
       <a href="#" class="w3-bar-item w3-button w3-padding"><span class="glyphicon glyphicon-play"></span>&nbsp; Profile</a>
       <a href="#" class="w3-bar-item w3-button w3-padding"><span class="glyphicon glyphicon-play"></span>&nbsp; Settings</a>
       <a href="#" class="w3-bar-item w3-button w3-padding"><span class="glyphicon glyphicon-play"></span>&nbsp; About</a>
+    </div>
   </nav>
 
 
@@ -77,22 +99,27 @@
       <h5><b><span class="glyphicon glyphicon-list"></span> My Dashboard</b></h5>
     </header>
 
+
+<?php if ($user->hak): ?>
     <div class="w3-row-padding w3-margin-bottom">
       <div class="w3-quarter">
         <div class="w3-container w3-red w3-padding-16">
-          <div class="w3-left"><span class="glyphicon glyphicon-minus"></i></div>
-        <div class="w3-right">
-          <h3>52</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Kritik dan saran</h4>
+         <div class="w3-left">
+            <span class="glyphicon glyphicon-minus"></span>
+         </div>
+         <div class="w3-right">
+           <h3><?=$user->getUnread('SK');?></h3>
+         </div>
+         <div class="w3-clear">
+         </div>
+         <h4>Kritik dan saran</h4>
+         </div>
       </div>
-    </div>
     <div class="w3-quarter">
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><span class="glyphicon glyphicon-plus"></div>
         <div class="w3-right">
-          <h3>99</h3>
+          <h3><?=$user->getUnread('SK');?></h3>
         </div>
         <div class="w3-clear"></div>
         <h4>Permohonan SK</h4>
@@ -102,7 +129,7 @@
       <div class="w3-container w3-teal w3-padding-16">
         <div class="w3-left"><!--<i class="fa fa-share-alt w3-xxxlarge"></i>--></div>
         <div class="w3-right">
-          <h3>23</h3>
+          <h3><?=$user->getUnread('SK');?></h3>
         </div>
         <div class="w3-clear"></div>
         <h4>Event</h4>
@@ -110,101 +137,40 @@
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
-        <div class="w3-left"><!--<i class="fa fa-users w3-xxxlarge"></i>--></div>
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>50</h3>
+          <h3><?=$user->getUnread('undangan');?></h3>
         </div>
         <div class="w3-clear"></div>
         <h4>Undangan</h4>
       </div>
     </div>
-  </div>
+   </div>
+<?php endif; ?>
 
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-twothird">
-        <h5>Surat masuk</h5>
+        <h5>Surat Keluar</h5>
         <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white" style="width:1015px">
           <tr>
-            <td>NO</td>
-            <td>TANGGAL SURAT</td>
-            <td><i>PENGIRIM</i></td>
-            <td><i>PERIHAL</i></td>
-            <td><i>TERTUJU</i></td>
-            <td><i>DISETUJUI</i></td>
-            <td><i>MANAGE</i></td>
+            <td>No Surat</td>
+            <td>Tanggal Surat</td>
+            <td><i>Pengirim</i></td>
+            <td><i>Perihal</i></td>
+            <td><i>Tujuan</i></td>
+            <td><i>Status</i></td>
+            <td><i>Edit</i></td>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Database error.</td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-            <td><i>-</i></td>
-           <td><span class="checkbox1">
-                   <label style="margin-top:20px; margin-bottom:-10px; margin-left:20px;" class="checkbox"><input type="checkbox" name="" checked=""><i> </i></label>
-             </span></td>
-            <td><span class="glyphicon glyphicon-pencil" style="margin-left:25px"></td>
-          </tr>
+
+          <!--ini buat fungsi dari akun -->
+          <?php $user->seeArsip(); ?>
+
         </table>
       </div>
     </div>
   </div>
-  <button href="javascript:void(0)" class="w3-button w3-dark-grey" style="margin-left:15px" onclick="document.getElementById('id01').style.display='block'">Tambah &nbsp;<span class="glyphicon glyphicon-chevron-right"></i></button>
+  <button href="javascript:void(0)" class="w3-button w3-dark-grey" style="margin-left:15px" onclick="document.getElementById('id01').style.display='block'">Tambah &nbsp;<span class="glyphicon glyphicon-chevron-right"></button>
   <hr>
 
   <!-- Footer -->
@@ -220,10 +186,10 @@
 <div id="id01" class="w3-modal" style="z-index:4">
   <div class="w3-modal-content w3-animate-zoom">
     <div class="w3-container w3-padding w3-red">
-       <span onclick="document.getElementById('id01').style.display='none'"
-       class="w3-button w3-red w3-right w3-xxlarge"><img src="img/close.png" style="width:50px; margin-bottom:5px"></span>
+       <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-red w3-right w3-xxlarge"><img src="img/close.png" style="width:50px; margin-bottom:5px">
+      </span>
               <h2>Arsipkan</h2>
-          </div>
+    </div>
           <div class="w3-panel">
             <label>Tertuju</label>
             <input class="w3-input w3-border w3-margin-bottom" type="text">

@@ -1,3 +1,8 @@
+<?php
+	include_once '../init.php';
+
+?>
+
 <!DOCTYPE HTML>
 <html>
 
@@ -14,7 +19,7 @@
 	/>
 	<!-- //for-mobile-apps -->
 	<!--Google Fonts-->
-	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+	<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet" type="text/css">
 	<!-- -->
 	<script>
 		var __links = document.querySelectorAll('a');
@@ -27,6 +32,7 @@
 				__links[i].addEventListener('click', __linkClick, false);
 			}
 		}
+
 	</script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script>
@@ -37,6 +43,7 @@
 				});
 			});
 		});
+
 	</script>
 	<script>
 		var __links = document.querySelectorAll('a');
@@ -49,6 +56,7 @@
 				__links[i].addEventListener('click', __linkClick, false);
 			}
 		}
+
 	</script>
 	<script>
 		$(document).ready(function(c) {
@@ -58,6 +66,7 @@
 				});
 			});
 		});
+
 	</script>
 	<script>
 		$(document).ready(function(c) {
@@ -67,6 +76,7 @@
 				});
 			});
 		});
+
 	</script>
 </head>
 
@@ -88,14 +98,14 @@
 						</div>
 						<div class="header-left-bottom">
 							<h3>Welcome to our Site.Please enter your <span class="login-color">Registration </span>details. Or have an account <span class="login-color">Login</span> here </h3>
-							<form>
-								<input type="text" class="user active" value="User Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Name';}" />
-								<input type="text" class="email active" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'email';}" />
-								<input type="password" class="lock active" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" />
+							<form method="post" action="../control/formhandler.php">
+								<input type="text" name="uname" class="user active" placeholder="User Name" required/>
+								<input type="text" name="email" class="email active" placeholder="Email" required />
+								<input type="password" name="pw" class="lock active" placeholder="Password" required/>
 								<span class="checkbox1">
-							   <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>I Accept Terms.</label>
-						 </span>
-								<input type="submit" name='signu' value="Sign up">
+							   <label class="checkbox"><input type="checkbox"><i> </i>I Accept Terms.</label>
+						 		</span>
+								<input type="submit" name="signup" value="Sign Up">
 							</form>
 						</div>
 						<div class="header-social">
@@ -116,19 +126,24 @@
 						</div>
 						<div class="header-left-bottom">
 							<h3>Welcome to our Site.Please enter your <span class="login-color">Login</span> details to login here. Or <span class="sin-color">Register</span> here.</h3>
-							<form>
-								<input type="text" class="user active" value="User Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Name';}" />
-								<input type="password" class="lock active" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" />
+							<form method="post" >
+								<input type="text" class="user active" name="unama" placeholder="User Name" required/>
+								<input type="password" class="lock active"  name="pws" placeholder="Password" required/>
 								<div class="remember">
 									<span class="checkbox1">
-							   <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Remember me</label>
-						 </span>
+							   		<label class="checkbox"><input type="checkbox"> <i> </i>Remember me</label>
+									</span>
 									<div class="forgot">
 										<h6><a href="#">Forgot Password</a></h6>
 									</div>
-									<div class="clear"> </div>
+									<div class="clear" id="error">
+										<?php echo (isset($GLOBALS['err'])) ? $GLOBALS['err']:""; ?>
+									</div>
+									<div>
+
+									</div>
 								</div>
-								<input type="submit" name='login' value="Login">
+								<input type="submit" name="login" value="Login">
 							</form>
 						</div>
 						<div class="header-social">
@@ -157,22 +172,21 @@
 						<div class="login-close rib-close"> <img src="img/cancel.png" alt="" /></div>
 						<div class="clear"> </div>
 					</div>
-					<form action="../control/formhandler.php">
+					<form action="../control/formhandler.php" method="post">
 						<div class="strip-left">
-							<input type="text" class="user active" value="User Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Name';}" />
+							<input type="text" class="user active" placeholder="User Name" required/>
 							<span class="checkbox1">
-								   <label class="checkbox"><input type="checkbox" name="remember" checked=""><i> </i>Remember me</label>
+							<label class="checkbox"><input type="checkbox" name="remember" checked=""><i> </i>Remember me</label>
 						 </span>
 						</div>
 						<div class="strip-left middle">
-							<input type="password" class="lock active" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" />
+							<input type="password" class="lock active" placeholder="Password" required=""/>
 							<p><a href="#">Forgot Password </a></p>
 						</div>
 						<div class="strip-left">
 							<input type="submit" name="admin" value="Login">
 							<div class="log-user">
 								<h6>Or Login Using</h6>
-
 								<ul class="botm-strip-icon">
 									<li>
 										<a class="f" href="#"> </a>

@@ -19,7 +19,7 @@
         $this->sambungan = null;
             die($e->getMessage());
     		}
-        
+
     }
 
     /**
@@ -66,7 +66,7 @@
 
       //buat query
       $query = "INSERT INTO ". $table ." (".$attr." ) VALUES (".$var.")";
-      echo $query,"<pre>",print_r($value),"</pre>";
+      //echo $query,"<pre>",print_r($value),"</pre>";
       //run query
       try {
         $stmt = $this->sambungan->prepare($query);
